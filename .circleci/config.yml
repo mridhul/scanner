@@ -33,7 +33,7 @@ jobs:
           name: Build docker
           command: |
             cd clair-scanner
-            docker build -t mridhulimpress:latest .       
+            docker build -t clairscanner:latest .       
       - run:
           name: run tests
           command: |
