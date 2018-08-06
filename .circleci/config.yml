@@ -33,17 +33,20 @@ jobs:
           name: Build docker
           command: |
             cd clair-scanner
-            docker build -t mridhulimpress:latest .
-            
+            docker build -t mridhulimpress:latest .       
       - run:
           name: run tests
           command: |
-            docker images
             docker run -v /var/run/docker.sock:/var/run/docker.sock -d --name clair-scanner mridhulimpress:latest tail -f /dev/null 
             docker exec -it clair-scanner clair-scanner -h
-
-      
-
+      - run:
+          name: push
+          command: |
+            if [ "${CIRCLE_BRANCH}" == "master" ]; then
+              docker login -e $DOCKER_EMAIL -u $DOCKER_USER -p $DOCKER_PASS
+              docker tag app "hub.docker.com/clairscanner:latest"
+              docker push "hub.docker.com/clairscanner:latest"
+            fi
       - store_artifacts:
           path: test-reports
           destination: test-reports
