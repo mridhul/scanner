@@ -44,8 +44,8 @@ jobs:
           command: |
             if [ "${CIRCLE_BRANCH}" == "master" ]; then
               docker login -u $DOCKER_USER -p $DOCKER_PASS
-              docker tag mridhulimpress "https://hub.docker.com/mridhulimpress/clairscanner:latest"
-              docker push "https://hub.docker.com/mridhulimpress/clairscanner:latest"
+              docker tag clairscanner mridhulimpress/clairscanner:latest
+              docker push mridhulimpress/clairscanner:latest
             fi
       - store_artifacts:
           path: test-reports
