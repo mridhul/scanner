@@ -37,7 +37,7 @@ jobs:
       - run:
           name: run tests
           command: |
-            docker run -v /var/run/docker.sock:/var/run/docker.sock -d --name clair-scanner mridhulimpress:latest tail -f /dev/null 
+            docker run -v /var/run/docker.sock:/var/run/docker.sock -d --name clair-scanner clairscanner:latest tail -f /dev/null 
             docker exec -it clair-scanner clair-scanner -h
       - run:
           name: push
