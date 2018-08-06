@@ -22,14 +22,7 @@ jobs:
       - setup_remote_docker:
           version: 17.11.0-ce
           docker_layer_caching: true
-
-      # Download and cache dependencies
-      - restore_cache:
-          keys:
-          - v1-dependencies-{{ checksum "requirements.txt" }}
-          # fallback to using the latest cache if no exact match is found
-          - v1-dependencies-
-        
+          
       # run tests!
       # this example uses Django's built-in test-runner
       # other common Python testing frameworks include pytest and nose
@@ -43,6 +36,7 @@ jobs:
       - run:
           name: Build docker
           command: |
+            cd clair-scanner
             docker build -t mridhulimpress:latest .
       
 
