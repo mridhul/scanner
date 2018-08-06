@@ -28,16 +28,20 @@ jobs:
       # other common Python testing frameworks include pytest and nose
       # https://pytest.org
       # https://nose.readthedocs.io
-      - run:
-          name: run tests
-          command: |
-            docker images
-
+      
       - run:
           name: Build docker
           command: |
             cd clair-scanner
             docker build -t mridhulimpress:latest .
+            
+      - run:
+          name: run tests
+          command: |
+            docker images
+            docker run -v /var/run/docker.sock:/var/run/docker.sock -d --name clair-scanner mridhulimpress:latest tail -f /dev/null 
+            docker exec -it clair-scanner clair-scanner -h
+
       
 
       - store_artifacts:
